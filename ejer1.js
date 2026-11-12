@@ -49,6 +49,7 @@ do {
             notaH(notas);
             break;
         case 'i':
+            notaI(notas);
             break;
         case 'j':
             break;
@@ -126,5 +127,10 @@ function notaG(notas) {
 
 function notaH(notas) {
     notas.splice(notas.length,1);
+    console.table(notas);
+}
+
+function notaI(notas) {
+    notas.fill(0);
     console.table(notas);
 }
