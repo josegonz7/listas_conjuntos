@@ -20,117 +20,117 @@ do {
         "m. Salir");
 
     switch (opc) {
+        // A. Introducir una nota al principio
         case 'a':
             const nota1 = window.prompt("dime la primera nota");
-            notaA(nota1);
+            notas.unshift(nota1);
+            console.table(notas);
             break;
+        // B. Introducir una nota al final
         case 'b':
             const nota2 = window.prompt("dime la ultima nota");
-            notaB(nota2);
+            notas.push(nota2);
+            console.table(notas);
             break;
+        // C. Subir todas las notas X puntos
         case 'c':
             const puntos = window.prompt("cuantos puntos quieres sumar");
-            notaC(puntos);
+            for (let i = 0; i < notas.length; i++) {
+                notas[i] = notas[i] + puntos;
+            }
+            console.table(notas);
             break;
+        // D. Calcular estadísticas actuales
         case 'd':
             notaD();
             break;
+        // E. Vaciar notas
         case 'e':
-            notaE();
+            notas = [];
+            console.table(notas);
+            console.log("la lista esta vacia");
             break;
+        // F. Inicializar N notas a valor X
         case 'f':
-            const nota3 = window.prompt("el número de notas que desea genera");
-            notaF(nota3);
+            const cantidad = window.prompt("el número de notas que desea generar:");
+            const valor = window.prompt("el valor que tendrán todas esas notas:");
+            let notas2 = [];
+            notas = notas2;
+            for (let i = 0; i < cantidad; i++) {
+                notas.push(valor);
+            }
+            console.table(notas);
             break;
+        // G. Eliminar la primera nota
         case 'g':
-            notaG(notas);
+            notas.shift();
+            console.table(notas);
             break;
+        // H. Eliminar la segunda nota
         case 'h':
-            notaH(notas);
+            notas.splice(1, 1);
+            console.table(notas);
             break;
+        // I. Establecer a 0 todos los suspensos
         case 'i':
-            notaI(notas);
+            for (let i = 0; i < notas.length; i++) {
+                if (notas[i] < 5) {
+                    notas[i] = 0;
+                }
+            }
+            console.table(notas);
             break;
+        // J. Sustituir una nota por otra
         case 'j':
+            const notaOri = window.prompt("Nota que vas a sustituir:");
+            const notaDes = window.prompt("Nueva nota:");
+            for (let i = 0; i < notas.length; i++) {
+                if (notas[i] === notaOri) {
+                    notas[i] = notaDes;
+                }
+            }
+            console.table(notas);
             break;
+        // K. Añadir una nota en una posición determinada
         case 'k':
+            const nueva = window.prompt("Introduce la nota:");
+            const posicion = window.prompt("posicion:");
+            notas.splice(posicion, 0, nueva);
+            console.table(notas);
             break;
+        // L. Contar el número de suspensos
         case 'l':
+            let contador = 0;
+            for (let i = 0; i < notas.length; i++) {
+                if (notas[i] < 5) {
+                    contador++;
+                }
+            }
+            console.log("suspensos: " + contador);
+            console.table(notas);
             break;
         case 'm':
+            // M. Salir: Finalizar la ejecución del programa
             salir = true;
             break;
         default:
-            console.error("Introduzca un valor correcto");
+            console.error("Introduce un valor correcto");
             break;
     }
 
 } while (!salir);
 
-// A. Introducir una nota al principio
-function notaA(nota1) {
-    notas.unshift(nota1);
-    console.table(notas);
-}
-
-// B. Introducir una nota al final
-function notaB(nota2) {
-    notas.push(nota2);
-    console.table(notas);
-}
-
-// C. Subir todas las notas X puntos
-function notaC(puntos) {
-
-    console.table(notas);
-}
-
-// // D. Calcular estadísticas actuales
 function notaD() {
-    let media;
+    let ordenadas = [...notas];
     notas.sort();
 
-    console.log("la minima es " + notas[0]);
-
-    console.log("El maxima es " + notas[notas.length - 1]);
-
-    console.log("la edad media es " + media / notas.length);
-
-    console.table(notas);
-    console.table(notas);
-}
-
-function notaE() {
-    let notas2 = [];
-    notas = notas2;
-    console.table(notas);
-    console.log("la lista esta vacia");
-}
-
-function notaF(nota3) {
-    let notas2 = [];
-    notas = notas2;
-    for (let i = 0; i <= nota3; i++) {
-
-        const nota4 = window.prompt("el valor que tendrán todas esas notas");
-        notas2.unshift(nota4);
+    let suma = 0;
+    for (let i = 0; i < notas.length; i++) {
+        suma += notas[i];
     }
-    console.table(notas);
 
-}
-
-// A. Introducir una nota al principio
-function notaG(notas) {
-    notas.shift();
-    console.table(notas);
-}
-
-function notaH(notas) {
-    notas.splice(notas.length,1);
-    console.table(notas);
-}
-
-function notaI(notas) {
-    notas.fill(0);
+    console.log("La mínima es: " + ordenadas[0]);
+    console.log("La máxima es: " + ordenadas[ordenadas.length - 1]);
+    console.log("La media es: " + (suma / notas.length));
     console.table(notas);
 }
