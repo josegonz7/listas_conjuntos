@@ -22,19 +22,19 @@ do {
     switch (opc) {
         // A. Introducir una nota al principio
         case 'a':
-            const nota1 = window.prompt("dime la primera nota");
+            const nota1 = parseInt(window.prompt("dime la primera nota"));
             notas.unshift(nota1);
             console.table(notas);
             break;
         // B. Introducir una nota al final
         case 'b':
-            const nota2 = window.prompt("dime la ultima nota");
+            const nota2 = parseInt(window.prompt("dime la ultima nota"));
             notas.push(nota2);
             console.table(notas);
             break;
         // C. Subir todas las notas X puntos
         case 'c':
-            const puntos = window.prompt("cuantos puntos quieres sumar");
+            const puntos = parseInt(window.prompt("cuantos puntos quieres sumar"));
             for (let i = 0; i < notas.length; i++) {
                 notas[i] = notas[i] + puntos;
             }
@@ -82,7 +82,7 @@ do {
             break;
         // J. Sustituir una nota por otra
         case 'j':
-            const notaOri = window.prompt("Nota que vas a sustituir:");
+            const notaOri = window.prompt("Nota a sustituir:");
             const notaDes = window.prompt("Nueva nota:");
             for (let i = 0; i < notas.length; i++) {
                 if (notas[i] === notaOri) {
@@ -121,16 +121,44 @@ do {
 } while (!salir);
 
 function notaD() {
-    let ordenadas = [...notas];
-    notas.sort();
 
-    let suma = 0;
-    for (let i = 0; i < notas.length; i++) {
-        suma += notas[i];
+    let ordenadas = [...notas]
+    ordenadas.sort();
+
+    let media = 0;
+
+    for (let nota of notas) {
+        media += nota;
     }
 
     console.log("La mínima es: " + ordenadas[0]);
     console.log("La máxima es: " + ordenadas[ordenadas.length - 1]);
-    console.log("La media es: " + (suma / notas.length));
+    console.log("la nota media es " + media / notas.length);
+    console.log("La moda es: " + calcularModa());
     console.table(notas);
+}
+
+function calcularModa() {
+    let moda;
+
+    let rep = new Map();
+
+    for (let nota of notas) {
+        if (rep.has(nota)) {
+
+            rep.set(nota, rep.get(nota) + 1);
+        } else {
+            rep.set(nota, 1);
+        }
+    }
+
+    let max = 0;
+    for (let nota of rep.keys()) {
+        if (max < rep.get(nota)) {
+            max = nota;
+            moda = nota;
+        }
+    }
+
+    return moda;
 }

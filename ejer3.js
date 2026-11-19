@@ -1,7 +1,28 @@
 // ejercicio 3
 
-let biblioteca = new Map();
 let salir = false;
+
+class Libro {
+    constructor(titulo, autor, ejemplares) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ejemplares = ejemplares;
+    }
+}
+
+let Libro1 = new Libro("El medico", "Noah gordon", 120);
+let Libro2 = new Libro("El chaman", "jose", 50);
+let Libro3 = new Libro("El doctora cole", "raul", 6);
+
+let biblioteca = new Map();
+biblioteca.set("1", Libro1);
+biblioteca.set("2", Libro2);
+biblioteca.set("3", Libro3);
+
+biblioteca.get("1").ejemplares = 8;
+
+
+console.log(biblioteca.get("6"));
 
 do {
     let opc = window.prompt("Elige una operación (Biblioteca): \n" +
@@ -19,33 +40,35 @@ do {
 
     switch (opc) {
         case 'a':
-            const libro = window.prompt("Introduce el ISBN:");
-            if (biblioteca.has(libro)) {
+            const isbn1 = window.prompt("Introduce el ISBN:");
+            if (biblioteca.has(isbn1)) {
                 console.log("Ya existe el libro");
             } else {
                 const titulo = window.prompt("Introduce el titulo:");
                 const autor = window.prompt("Introduce el autor:");
                 const ejemplares = window.prompt("Introduce el numero de ejemplares:");
 
-                biblioteca.set(libro, titulo, autor, ejemplares);
-                console.log("Libro añadido");
+                let Libro4 = new Libro(titulo, autor, ejemplares);
+                biblioteca.set(isbn1, Libro4);
             }
             console.table(biblioteca);
             break;
         case 'b':
-            const eliminar = window.prompt("Introduce el ISBN:");
-            if (biblioteca.has(eliminar)) {
-                biblioteca.delete(eliminar);
+            const isbn2 = window.prompt("Introduce el ISBN:");
+            if (biblioteca.has(isbn2)) {
+                biblioteca.delete(isbn2);
             } else {
                 console.log("No se encuentra ese libro");
             }
             console.table(biblioteca);
             break;
         case 'c':
-            const consultar = window.prompt("Introduce el ISBN:");
-            if (biblioteca.has(consultar)) {
-                biblioteca.get(consultar);
-                console.log("ISBN: " + consultar);
+            const isbn3 = window.prompt("Introduce el isbn:");
+            if (biblioteca.has(isbn3)) {
+                biblioteca.get(isbn3);
+                console.log("isbn: " + isbn3 + " Titulo: " + biblioteca.get(isbn3).titulo +
+                    " Autor: " + biblioteca.get(isbn3).autor + " Ejemplares: " +
+                    biblioteca.get(isbn3).ejemplares);
             } else {
                 console.log("El libro no existe");
             }
@@ -53,26 +76,35 @@ do {
         case 'd':
             console.log("total: " + biblioteca.size);
             for (let isbn of biblioteca.keys()) {
-                let libro = biblioteca.get(isbn);
-                console.log("[" + isbn + "] " + libro.titulo + " - " + libro.autor + " (" + libro.ejemplares + " ejemplares)");
+                console.log("isbn: " + isbn + " Titulo: " + biblioteca.get(isbn).titulo +
+                    " Autor: " + biblioteca.get(isbn).autor + " Ejemplares: " +
+                    biblioteca.get(isbn).ejemplares);
             }
             console.table(biblioteca);
             break;
         case 'e':
-            const isbnMod = window.prompt("Introduce el ISBN del libro:");
-            const nuevaCant = Number(window.prompt("Introduce la nueva cantidad de ejemplares:"));
+            const isbn4 = window.prompt("Introduce el isbn:");
+            const cantidad = window.prompt("cantidad:");
 
+            if (biblioteca.has(isbn4)) {
+                biblioteca.get(isbn4).ejemplares = cantidad;
+            } else {
+                console.log("El isbn no existe.");
+            }
+            console.table(biblioteca);
             break;
         case 'f':
-            const autorBuscar = window.prompt("Introduce el nombre del autor:");
-
+            const autor1 = window.prompt("Introduce el autor:");
+            if (biblioteca.has(autor1)) {
+               console.log(" Autor: " + biblioteca.get(isbn));
+            }  else {
+                console.log("El autor no existe.");
+            }
             break;
         case 'g':
-            const isbnPrestar = window.prompt("Introduce el ISBN del libro a prestar:");
 
             break;
         case 'h':
-            const isbnDevolver = window.prompt("Introduce el ISBN del libro a devolver:");
 
             break;
         case 'i':
