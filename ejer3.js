@@ -39,29 +39,32 @@ do {
         "k. Salir");
 
     switch (opc) {
+        // A. Añadir un libro
         case 'a':
             const isbn1 = window.prompt("Introduce el ISBN:");
             if (biblioteca.has(isbn1)) {
-                console.log("Ya existe el libro");
+                console.log("Ya existe el isbn");
             } else {
                 const titulo = window.prompt("Introduce el titulo:");
                 const autor = window.prompt("Introduce el autor:");
-                const ejemplares = window.prompt("Introduce el numero de ejemplares:");
+                const ejemplares = parseInt(window.prompt("Introduce el numero de ejemplares:"));
 
                 let Libro4 = new Libro(titulo, autor, ejemplares);
                 biblioteca.set(isbn1, Libro4);
             }
             console.table(biblioteca);
             break;
+        // B. Eliminar un libro
         case 'b':
             const isbn2 = window.prompt("Introduce el ISBN:");
             if (biblioteca.has(isbn2)) {
                 biblioteca.delete(isbn2);
             } else {
-                console.log("No se encuentra ese libro");
+                console.log("No se encuentra ese isbn");
             }
             console.table(biblioteca);
             break;
+        // C. Consultar un libro
         case 'c':
             const isbn3 = window.prompt("Introduce el isbn:");
             if (biblioteca.has(isbn3)) {
@@ -70,9 +73,10 @@ do {
                     " Autor: " + biblioteca.get(isbn3).autor + " Ejemplares: " +
                     biblioteca.get(isbn3).ejemplares);
             } else {
-                console.log("El libro no existe");
+                console.log("El isbn no existe");
             }
             break;
+        // D. Mostrar catálogo
         case 'd':
             console.log("total: " + biblioteca.size);
             for (let isbn of biblioteca.keys()) {
@@ -82,6 +86,7 @@ do {
             }
             console.table(biblioteca);
             break;
+        // E. Modificar ejemplares
         case 'e':
             const isbn4 = window.prompt("Introduce el isbn:");
             const cantidad = window.prompt("cantidad:");
@@ -93,26 +98,51 @@ do {
             }
             console.table(biblioteca);
             break;
+        // F. Buscar libros de un autor
         case 'f':
             const autor1 = window.prompt("Introduce el autor:");
             if (biblioteca.has(autor1)) {
-               console.log(" Autor: " + biblioteca.get(isbn));
-            }  else {
+                console.log("isbn: " + isbn + " Titulo: " + biblioteca.get(isbn).titulo +
+                    " Autor: " + biblioteca.get(isbn).autor + " Ejemplares: " +
+                    biblioteca.get(isbn).ejemplares);
+            } else {
                 console.log("El autor no existe.");
             }
             break;
+        // G. Prestar un libro
         case 'g':
-
+            const isbn5 = window.prompt("Introduce el isbn:");
+            if (biblioteca.has(isbn5)) {
+                if (biblioteca.get(isbn5).ejemplares > 0) {
+                    biblioteca.get(isbn5).ejemplares - 1;
+                } else {
+                    console.log("No quedan ejemplares");
+                }
+            } else {
+                console.log("El isbn no existe.");
+            }
+            console.table(biblioteca);
             break;
+        // H. Devolver un libro
         case 'h':
-
+            const isbn6 = window.prompt("Introduce el isbn:");
+            if (biblioteca.has(isbn6)) {
+                biblioteca.get(isbn6).ejemplares + 1;
+            } else {
+                console.log("El isbn no existe.");
+            }
+            console.table(biblioteca);
             break;
+        // I. Mostrar estadísticas
         case 'i':
-
+            console.log("total: " + biblioteca.size);
             break;
+        // J. Vaciar catálogo: Eliminar todos los libros del mapa.
         case 'j':
-
+            biblioteca.clear();
+            console.table(biblioteca);
             break;
+        // K. Salir: Finalizar el programa
         case 'k':
             salir = true;
             break;
